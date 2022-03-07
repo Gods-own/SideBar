@@ -4,57 +4,132 @@
 	<meta charset="UTF-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
-	<script src="https://kit.fontawesome.com/cf9b35b5cb.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
     	tailwind.config = {
 		  theme: {
 		    extend: {
 		      gridTemplateColumns: {
-		        'body': '22% 77%',
+		        'body': 'minmax(100px, 300px) 1fr',
+		        'mobile': '100px 1fr'
+		      },
+		      scale: {
+		      	'107': '1.07'
+		      },
+		      width: {
+		      	'27': '6.5rem'
 		      }
 		    }
 		  }
 		}
     </script>
+    <style type="text/css">
+    	.show-menu {
+    		position: absolute !important;
+    		display: block !important;
+    		min-height: 100vh;
+    	}
+    	@media(max-width: 648px) {
+	    	nav {
+	    		left: -18rem;
+	    	}
+        }
+    </style>
 </head>
 <body>
-	<div class="grid grid-cols-body text-red-500 gap-x-1.5 min-h-screen">
-		<nav class="bg-blue-500">
-			<div>
-				<ul>
-					<li>
-						<i class="fas fa-grid-horizontal"></i>
-						Dashboard
+	<div class="body-div md:grid md:grid-cols-mobile xl:grid-cols-body gap-x-1.5 min-h-screen relative">
+		<nav class="hidden md:block bg-white shadow-inner">
+			<div class="px-4 py-7">
+				<div class="flex items-center">
+					<img src="logo-2.png" class="w-100">
+					<h2 class="font-bold text-2xl md:hidden xl:block">Elim Watt</h2>
+				</div>
+				<ul class="mt-5">
+					<li class="bg-yellow-400 text-white px-2 py-1 rounded-xl transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-grip-horizontal text-2xl align-middle"></i>
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Dashboard</span>
 					</li>
-					<li>
-						<i class="fas fa-chalkboard-user"></i>					
-						Add Teacher
+					<li class="transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-chalkboard-teacher text-2xl align-middle"></i>				
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Add Teacher</span>
 				   </li>
-					<li>
-						<i class="fas fa-user-graduate"></i>
-						Add School
+					<li class="transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-user-graduate text-2xl align-middle"></i>
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Add School</span>
 					</li>
-					<li>
-						<i class="fas fa-screen-users"></i>
-						Add Class
+					<li class="transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-school text-2xl align-middle"></i>						
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Add Class</span>
 					</li>
-					<li>
-						<i class="fas fa-calendar-days"></i>
-						Add Schedule
+					<li class="transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-calendar-alt text-2xl align-middle"></i>
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Add Schedule</span>
 					</li>
-					<li>
-						<i class="fa-solid fa-business-time"></i>
-					Add Town
+					<li class="transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-business-time text-2xl align-middle"></i>				
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Add Town</span>
 					</li>
-					<li>
-						<i class="fa-solid fa-notebook"></i>
-					Add Town
+					<li class="transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+						<i class="las la-book-open text-2xl align-middle"></i>
+						<span class="ml-2 align-middle md:hidden xl:inline-block">Add Town</span>
 					</li>
 				</ul>
 			</div>
 		</nav>
-		<div>jrfnjn</div>
+		<div class="bg-blue-500">
+			<div>
+				<button class="md:hidden menu float-right">
+					<i class="las la-bars"></i>
+				</button>
+			</div>
+		</div>
 	</div>
+	<script type="text/javascript">
+		let menu = document.querySelector('.menu');
+		let nav = document.querySelector('nav');
+		let bodyDiv = document.querySelector('.body-div');
+
+		const debounce = (func, delay) => {
+		    let debounceTimer
+		    return function() {
+		        const context = this
+		        const args = arguments
+		            clearTimeout(debounceTimer)
+		                debounceTimer
+		            = setTimeout(() => func.apply(context, args), delay)
+		    }
+		}
+
+		function showmenu() {
+			let id = null;
+			clearInterval(id);
+			let pos = 0;
+			id = setInterval(frame, 5);
+
+			function frame() {
+		    if (pos == 18) {
+		      clearInterval(id);
+		    } else {
+		      pos++;
+		      nav.style.left = pos + 'rem';
+		    }
+		  }
+		}
+
+		menu.addEventListener("click", function() {
+			nav.classList.toggle("show-menu");
+			showmenu();
+		});
+
+		window.addEventListener("resize", debounce(function(event) {
+		    if(document.body.clientWidth > 767 ) {
+		    	nav.style.position = 'static';
+		    }
+		    else if(document.body.clientWidth < 767) {
+		    	nav.style.position = 'absolute';
+		    }
+		}, 800));
+	</script>
 </body>
 </html>
