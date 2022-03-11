@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-	<div class="body-div md:grid md:grid-cols-mobile xl:grid-cols-body gap-x-1.5 min-h-screen relative">
+	<div class="body-div md:grid md:grid-cols-mobile xl:grid-cols-body min-h-screen relative">
 		<nav class="hidden md:block bg-white shadow-inner">
 			<div class="px-4 py-7">
 				<div class="flex items-center">
@@ -46,7 +46,7 @@
 					<h2 class="font-bold text-2xl md:hidden xl:block">Elim Watt</h2>
 				</div>
 				<ul class="mt-5">
-					<li class="bg-yellow-400 text-white px-2 py-1 rounded-xl transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
+					<li class="bg-sky-400 text-white px-2 py-1 rounded-xl transition transform duration-1000 hover:scale-107 md:flex justify-center xl:block">
 						<i class="las la-grip-horizontal text-2xl align-middle"></i>
 						<span class="ml-2 align-middle md:hidden xl:inline-block">Dashboard</span>
 					</li>
@@ -77,13 +77,25 @@
 				</ul>
 			</div>
 		</nav>
-		<div class="bg-blue-500">
-			<div>
-				<button class="md:hidden menu float-right">
-					<i class="las la-bars"></i>
-				</button>
-			</div>
-		</div>
+		<main class="pt-5">
+			<header>
+				<div>
+					<button class="md:hidden menu float-right">
+						<i class="las la-bars"></i>
+					</button>
+					<div class="clear-both"></div>
+				</div>
+			</header>
+			<section class="px-4">
+				<article class="flex items-center border border-fuschia-200 bg-yellow-400 rounded-lg">
+					<img src="session-illustration.png">
+					<div class="text-2xl font-bold text-white">
+					<h2>Term: First term</h2>
+					<h2>Session: 13th September 2021 - 14th July 2022</h2> 						
+					</div>
+				</article>
+			</section>
+		</main>
 	</div>
 	<script type="text/javascript">
 		let menu = document.querySelector('.menu');
@@ -104,11 +116,12 @@
 		function showmenu() {
 			let id = null;
 			clearInterval(id);
-			let pos = 0;
+			let pos = -18;
 			id = setInterval(frame, 5);
+			nav.classList.toggle("show-menu");
 
 			function frame() {
-		    if (pos == 18) {
+		    if (pos == 0) {
 		      clearInterval(id);
 		    } else {
 		      pos++;
@@ -118,17 +131,16 @@
 		}
 
 		menu.addEventListener("click", function() {
-			nav.classList.toggle("show-menu");
 			showmenu();
 		});
 
 		window.addEventListener("resize", debounce(function(event) {
 		    if(document.body.clientWidth > 767 ) {
-		    	nav.style.position = 'static';
+		    	nav.classList.remove("show-menu");
 		    }
-		    else if(document.body.clientWidth < 767) {
-		    	nav.style.position = 'absolute';
-		    }
+		    // else if(document.body.clientWidth < 767) {
+		    // 	nav.classList.add("show-menu");
+		    // }
 		}, 800));
 	</script>
 </body>
